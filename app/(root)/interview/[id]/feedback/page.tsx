@@ -1,12 +1,12 @@
 import {getCurrentUser} from "@/lib/actions/auth.action";
-import {getInterviewById} from "@/lib/actions/general.action";
+import {getInterviewById, getFeedbackByInterviewId} from "@/lib/actions/general.action";
 import {redirect} from "next/navigation";
 import Image from "next/image";
 import dayjs from "dayjs";
 import {Button} from "@/components/ui/button";
 import Link from "next/link";
 
-const interview = async ({ params } : RouteParams) => {
+const Feedback = async ({ params } : RouteParams) => {
     const { id } = await params;
     const user = await getCurrentUser();
 
@@ -81,7 +81,7 @@ const interview = async ({ params } : RouteParams) => {
             <div className={"flex flex-col gap-3"}>
                 <h3>Areas for Improvement</h3>
                 <ul>
-                    {feedback?.areasForImprovements.map((area, index) => (
+                    {feedback?.areasForImprovement.map((area, index) => (
                         <li key={index}>{area}</li>
                     ))}
                 </ul>
@@ -109,3 +109,5 @@ const interview = async ({ params } : RouteParams) => {
         </section>
     );
 };
+
+export default Feedback;
