@@ -8,7 +8,7 @@ export async function GET() {
 }
 
 export async function POST(request: Request){
-    const { type, role, level, techStack, amount , userid } = await request.json();
+    const { type, role, level, techstack, amount , userid } = await request.json();
 
     try{
         const { text: questions } = await generateText({
@@ -16,7 +16,7 @@ export async function POST(request: Request){
             prompt: `Prepare questions for a job interview.
             The job role is ${role}.
             The job experience level is ${level}.
-            The tech stack used in the job is: ${techStack}.
+            The tech stack used in the job is: ${techstack}.
             The focus between behavioural and technical questions should lean towars: ${type}.
             The amount of questions required is: ${amount}.
             Please return only the questions, whitout any additional text.
@@ -30,7 +30,7 @@ export async function POST(request: Request){
 
         const interview = {
             role, type, level,
-            techStack: techStack.split(','),
+            techstack: techstack.split(','),
             questions: JSON.parse(questions),
             userId: userid,
             finalized: true,
