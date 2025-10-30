@@ -6,6 +6,7 @@ import { Button } from "./ui/button";
 
 import { getRandomInterviewCover } from "@/lib/utils";
 import DisplayTechIcons from "@/components/DisplayTechIcons";
+import {getFeedbackByInterviewId} from "@/lib/actions/general.action";
 
 const InterviewCard=  async ({
                                   id,
@@ -15,7 +16,9 @@ const InterviewCard=  async ({
                                   techstack,
                                   createdAt
 }: InterviewCardProps)=> {
-    const feedback = null as Feedback | null;
+    const feedback = userId && id
+    ? await getFeedbackByInterviewId({ interviewId: id, userId })
+        : null;
     const normalizedType = /mix/gi.test(type) ? 'Mixed' : type;
     const formattedDate = dayjs(
         feedback?.createdAt || createdAt || Date.now()
@@ -26,7 +29,7 @@ const InterviewCard=  async ({
             <div className={"card-interview"}>
                 <div>
                     <div
-                        className="absolute top-0 right-0 w-fit px-4 py-2 rounded-bl-lg"
+                        className="absolute top-0 right-0 w-fit px-4 py-2 rounded-bl-lg bg-light-600"
                     >
                         <p className={"badge-text"}>{normalizedType}</p>
                     </div>

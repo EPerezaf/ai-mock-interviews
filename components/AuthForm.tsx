@@ -7,7 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form"
 
 import {createUserWithEmailAndPassword, signInWithEmailAndPassword} from "firebase/auth";
-import {auth} from "@/firebase/client";
+import {auth} from "@/components/firebase/client";
 import {signIn, signUp} from "@/lib/actions/auth.action";
 import Image from "next/image";
 import {Button} from "@/components/ui/button";
@@ -16,11 +16,11 @@ import Link from "next/link";
 
 const authFormSchema = (type: FormType) => {
     return z.object({
-        name: type === 'sign-up' ? z.string().min(3) : z.string().optional(),
+        name: type === 'sign-up' ? z.string().min(2) : z.string().optional(),
         email: z.string().email(),
         password: z.string().min(3),
-    })
-}
+    });
+};
 
 const AuthForm = ({ type }: { type: FormType }) => {
     const router = useRouter();
@@ -136,6 +136,6 @@ const AuthForm = ({ type }: { type: FormType }) => {
                 </p>
             </div>
         </div>
-    )
-}
+    );
+};
 export default AuthForm
